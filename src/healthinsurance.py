@@ -30,6 +30,7 @@ class HealthInsurance:
     
     def feature_engineering( self, df3 ):
         # vehicle age
+        print(df3.columns)
         df3['vehicle_age'] = df3['vehicle_age'].apply( lambda x: 'over_2_years'      if x == '> 2 Years' else
                                                                  'between_1_2_years' if x == '1-2 Year' else 
                                                                  'below_1_year' )
@@ -72,8 +73,8 @@ class HealthInsurance:
     def get_predict( self, model, original_data, test_data ):
         # model prediction
         pred = model.predict_proba( test_data )
-        
+
         # join prediction into original data
-        original_data['prediction'] = pred
+        original_data['score'] = pred[:, 1].tolist()
         
         return original_data.to_json( orient='records', date_format='iso' )
