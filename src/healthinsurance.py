@@ -30,11 +30,9 @@ class HealthInsurance:
     
     def feature_engineering( self, df3 ):
         # vehicle age
-        print(df3.columns)
         df3['vehicle_age'] = df3['vehicle_age'].apply( lambda x: 'over_2_years'      if x == '> 2 Years' else
                                                                  'between_1_2_years' if x == '1-2 Year' else 
                                                                  'below_1_year' )
-        
         # vehicle damage
         df3['vehicle_damage'] = df3['vehicle_damage'].apply(lambda x: 1 if x == 'Yes' else 0)
         
@@ -60,12 +58,20 @@ class HealthInsurance:
         # vehicle_age
         df6 = pd.get_dummies( df6, prefix='vehicle_age', columns=['vehicle_age'] )
 
+        if 'vehicle_age_below_1_year' not in df6.columns:
+            df6['vehicle_age_below_1_year'] = 0
+        if 'vehicle_age_between_1_2_years' not in df6.columns:
+            df6['vehicle_age_between_1_2_years'] = 0
+        if 'vehicle_age_over_2_years' not in df6.columns:
+            df6['vehicle_age_over_2_years'] = 0
+
         # policy_sales_channel
         df6['policy_sales_channel'] = df6['policy_sales_channel'].map( self.freq_policy_sales_channel_scaler )
         
         # feature selection
         cols_selected = ['annual_premium', 'vintage', 'age', 'region_code', 
-                 'vehicle_damage', 'previously_insured', 'policy_sales_channel']
+                        'vehicle_damage', 'previously_insured', 'policy_sales_channel', 
+                        'vehicle_age_below_1_year', 'vehicle_age_between_1_2_years', 'vehicle_age_over_2_years']
         
         return df6[ cols_selected ]
     
