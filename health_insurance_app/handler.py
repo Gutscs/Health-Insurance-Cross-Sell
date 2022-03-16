@@ -9,7 +9,7 @@ from healthinsurance.healthinsurance import HealthInsurance
 
 # loading model
 path = os.path.abspath('')
-model = pickle.load( open( os.path.join( path, "model/model_linear_regression.pkl"), 'rb' ) )
+model = pickle.load( open( os.path.join( path, "model/model_et_classifier.pkl"), 'rb' ) )
 
 # initialize API
 app = Flask( __name__ )
