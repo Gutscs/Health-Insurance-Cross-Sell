@@ -109,7 +109,7 @@ It was used three models to solve the ranking problem:
 * Logistic Regression
 * Extra Trees Classifier
 
-The following metrics and curves were used to choose the better model:
+The following metrics and curves were used to choose the best model:
 
 * Precision at K
 * Recall at K
